@@ -39,5 +39,5 @@ CAAAAAAAAACCATAAGCCGCCATGTCTCACATCGCAACCGGCTCAAGTAGAGTGCCCCTAATAATATGATCTTCGCTAC
 ![image](test/structure.png)
 ****
 **For more API reference, please refer to the follow user manual or source code.**
-- [Bed API](https://github.com/wenlinXu-njfu/Leo/blob/main/bed.md)
-- [GenoType API](https://github.com/wenlinXu-njfu/Leo/blob/main/GenoType.md)
+- [Bed API](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/bed.md)
+- [GenoType API](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/GenoType.md)
