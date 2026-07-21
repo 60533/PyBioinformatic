@@ -231,7 +231,7 @@ with GenoType('test/genotype/genotype.txt') as gt1, \
     output_path='test/genotype/gs'
   )
 ```
-**Compare using the common SNP set from the two genotype matrices. The common set of SNP is determined by the SNP ID. [`Compare.GT.xls`](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/gs/Compare.GT.xls) lists the SNPs which are used to compare with the database samples.**
+**Compare using the common SNP set from the two genotype matrices. The common set of SNP is determined by the SNP ID. [`Compare.GT.xls`](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/gs/Compare.GT.xls) lists the SNPs which are used to compare with the database samples.**
 ```text
 # Compare.GT.xls
 ID     Ref  Sample01  Sample02  Sample03  Sample04  Sample05  ......
@@ -247,7 +247,7 @@ SNP09  C    CT        CC        CT        CT        CT        ......
 SNP10  C    AC        AA        AA        AC        CC        ......
 ```
 **Output the comparison results of genotypes in two formats.**<br />
-1. **[`Sample.consistency.fmt1.xls`](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/gs/Sample.consistency.fmt1.xls) is a pairwise comparison between the query sample and the database samples, presenting detailed results of genotype similarity.**
+1. **[`Sample.consistency.fmt1.xls`](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/gs/Sample.consistency.fmt1.xls) is a pairwise comparison between the query sample and the database samples, presenting detailed results of genotype similarity.**
 ```text
 # Sample.consistency.fmt1.xls
 Sample1   Sample2   IdenticalCount  NaCount  TotalCount  GS(%)
@@ -267,7 +267,7 @@ Sample01  Sample04  5               0        10          50.00
 - column4: The number of SNPs with the missing genotype between the two compared samples
 - column5: The total number of SNPs without missing genotype that used for comparing genotypes
 - column6: The ratio of the column3 to the column5 (genetic similarity)
-2. **[`Sample.consistency.fmt2.xls`](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/gs/Sample.consistency.fmt2.xls) is the genotype similarity matrix**
+2. **[`Sample.consistency.fmt2.xls`](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/gs/Sample.consistency.fmt2.xls) is the genotype similarity matrix**
 ```text
 # Sample.consistency.fmt2.xls
           Sample01  Sample02  Sample03  Sample04  Sample05  ......
@@ -283,8 +283,8 @@ Sample09  22.22     22.22     11.11     11.11     33.33     ......
 ......    ......    ......    ......    ......    ......    ......
 ```
 **Also outputs the visualized results of genotype similarity**
-![image](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/gs/GS_heatmap.png)
-![image](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/gs/GS_cluster_heatmap.png)
+![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/gs/GS_heatmap.png)
+![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/gs/GS_cluster_heatmap.png)
 ## 9.2. Compare the genotype consistency among different replicate samples
 ```python
 from pybioinformatic import GenoType
@@ -296,7 +296,7 @@ with GenoType('test/genotype/genotype.txt') as gt1, \
       output_path='test/genotype/gs'
   )
 ```
-**Output two files: [`Sample.consistency.xls`](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/gs/Sample.consistency.xls) and [`Interval.stat.xls`](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/gs/Interval.stat.xls)**
+**Output two files: [`Sample.consistency.xls`](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/gs/Sample.consistency.xls) and [`Interval.stat.xls`](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/gs/Interval.stat.xls)**
 ```text
 # Sample.consistency.xls
 SampleName  IdenticalCount  NaCount  TotalCount  GS(%)
@@ -310,7 +310,7 @@ Sample07    10              0        10          100.0
 Sample08    9               1        9           100.0
 Sample09    10              0        10          100.0
 ```
-**[`Sample.consistency.xls`](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/gs/Sample.consistency.xls) format instructions can be reference in the previous [section](#link2).**<br />
+**[`Sample.consistency.xls`](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/gs/Sample.consistency.xls) format instructions can be reference in the previous [section](#link2).**<br />
 ```text
 # Interval.stat.xls
 [0, 5]     0.0
@@ -335,7 +335,7 @@ Sample09    10              0        10          100.0
 (95, 100]  27.0
 total      28.0
 ```
-**[`Interval.stat.xls`](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/gs/Interval.stat.xls) count the number of samples in each similarity interval.**
+**[`Interval.stat.xls`](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/gs/Interval.stat.xls) count the number of samples in each similarity interval.**
 
 # 10. Draw genotype heatmap
 ```python
@@ -349,7 +349,7 @@ with GenoType('test/genotype/genotype.txt') as gt:
         out_file='test/genotype/genotype_heatmap/genotype_heatmap_with_default_colors.png'
     )
 ```
-![image](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/genotype_heatmap/genotype_heatmap_with_default_colors.png)
+![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/genotype_heatmap/genotype_heatmap_with_default_colors.png)
 **Or use customized genotype colors**
 ```python
 from pybioinformatic import GenoType
@@ -362,12 +362,12 @@ with GenoType('test/genotype/genotype.txt') as gt:
         out_file='test/genotype/genotype_heatmap/genotype_heatmap_with_customized_colors.png'
     )
 ```
-![image](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/genotype_heatmap/genotype_heatmap_with_customized_colors.png)
+![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/genotype_heatmap/genotype_heatmap_with_customized_colors.png)
 
 # 11. Build finger-print
 ## 11.1. Select core SNPs
 **Select a minimal core set of SNP loci that can fully discriminate all samples using a genetic algorithm (GA) with optional uniform chromosomal distribution constraints.**<br />
-![image](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/finger_print/genetic_algorithm_flowchart.png)
+![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/finger_print/genetic_algorithm_flowchart.png)
 ```python
 from pybioinformatic import GenoType
 
@@ -400,7 +400,7 @@ SNP1226  Chr02  7850760   C    TT         TT         TT         TT         ...
 SNP1291  Chr02  12057445  A    CC         CC         CC         AA         ...
 ...      ...    ...       ...  ...        ...        ...        ...        ...
 ```
-![image](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/finger_print/identification_rate_curve.png)<br />
+![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/finger_print/identification_rate_curve.png)<br />
 **More detail information use `help(gt.select_core_snps_ga)`**
 ## 11.2. Visualized fingerprint
 ```python
@@ -409,7 +409,7 @@ from pybioinformatic import GenoType
 with GenoType('test/genotype/finger_print/coreSNP.txt') as gt:
     gt.draw_finger_print(output_file='test/genotype/finger_print/fingerprint.png')
 ```
-![image](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/finger_print/fingerprint.png)
+![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/finger_print/fingerprint.png)
 
 # 12. Analysis of phenotypic differences by genotype
 **Perform phenotypic association analysis (ANOVA) for the genotype of each SNP in the input genotype matrix and visualize the results.**
@@ -424,6 +424,6 @@ with GenoType('test/genotype/genotype.txt') as gt:
         mark_sample_list=['Sample07', 'Sample20']
     )
 ```
-![image](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/genotype/genotype_phenotype_anova/Chr03_436874_Trait3.png)
+![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/genotype_phenotype_anova/Chr03_436874_Trait3.png)
 
 [Back to top](#link1)

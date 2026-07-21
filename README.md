@@ -36,8 +36,8 @@ CAAAAAAAAACCATAAGCCGCCATGTCTCACATCGCAACCGGCTCAAGTAGAGTGCCCCTAATAATATGATCTTCGCTAC
 ...............((((((((.((......(((((.(.((((...((((.................((.((((......)))).))........)))).)))).).))))).......)).))).)))))...
 -27.299999237060547
 ```
-![image](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/test/structure.png)
+![image](https://github.com/60533/PyBioinformatic/blob/main/test/structure.png)
 ****
 **For more API reference, please refer to the follow user manual or source code.**
-- [Bed API](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/bed.md)
-- [GenoType API](https://github.com/wenlinXu-njfu/PyBioinformatic/blob/main/GenoType.md)
+- [Bed API](https://github.com/60533/PyBioinformatic/blob/main/bed.md)
+- [GenoType API](https://github.com/60533/PyBioinformatic/blob/main/GenoType.md)
