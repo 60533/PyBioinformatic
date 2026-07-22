@@ -367,7 +367,7 @@ with GenoType('test/genotype/genotype.txt') as gt:
 # 11. Build finger-print
 ## 11.1. Select core SNPs
 **Select a minimal core set of SNP loci that can fully discriminate all samples using a genetic algorithm (GA) with optional uniform chromosomal distribution constraints.**<br />
-![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/finger_print/genetic_algorithm_flowchart.png)
+![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/finger_print/flowchart.png)
 ```python
 from pybioinformatic import GenoType
 
