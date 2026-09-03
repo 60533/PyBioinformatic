@@ -2,7 +2,7 @@
 
 ## 1. Install
 ```shell
-pip install pybioinformatic --upgrade
+pip install pybioinformatic --upgrade -i http://192.168.31.13:8080 --trusted-host 192.168.31.13
 ```
 
 ## 2. Issue
