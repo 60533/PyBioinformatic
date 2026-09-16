@@ -1,0 +1,14 @@
+sample	condition	group
+CK_1	control	OE_vs_CK
+CK_2	control	OE_vs_CK
+CK_3	control	OE_vs_CK
+OE_1	treated	OE_vs_CK
+OE_2	treated	OE_vs_CK
+OE_3	treated	OE_vs_CK
+
+CK_1	control	KO_vs_CK
+CK_2	control	KO_vs_CK
+CK_3	control	KO_vs_CK
+KO_1	treated	KO_vs_CK
+KO_2	treated	KO_vs_CK
+KO_3	treated	KO_vs_CK

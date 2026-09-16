@@ -41,3 +41,4 @@ CAAAAAAAAACCATAAGCCGCCATGTCTCACATCGCAACCGGCTCAAGTAGAGTGCCCCTAATAATATGATCTTCGCTAC
 **For more API reference, please refer to the follow user manual or source code.**
 - [Bed API](https://github.com/60533/PyBioinformatic/blob/main/bed.md)
 - [GenoType API](https://github.com/60533/PyBioinformatic/blob/main/GenoType.md)
+- [RNA-seq API](https://github.com/60533/PyBioinformatic/blob/main/RNA-seq.md)

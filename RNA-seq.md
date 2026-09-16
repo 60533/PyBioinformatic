@@ -1,5 +1,9 @@
 **<a id="link1">User guide of RNA-seq</a>**<br />
-[TOC]
+
+- [1. RNA-seq analysis](#1-rna-seq-analysis)
+  - [1.1 Standardize the expression levels of genes](#11-standardize-the-expression-levels-of-genes)
+  - [1.2 Differential expression analysis](#12-differential-expression-analysis)
+  - [1.3 Allele expression pattern clustering](#13-allele-expression-pattern-clustering)
 
 # 1. RNA-seq analysis
 ## 1.1 Standardize the expression levels of genes
@@ -46,7 +50,24 @@ Posim.A01G000200.1.v1.0  86729.433995  ...  127786.755760
 [5 rows x 4 columns]
 ```
 
-## 1.2 Allele expression pattern clustering
+## 1.2 Differential expression analysis
+```python
+from pybioinformatic import GeneExpressionAnalysis
+
+
+gea = GeneExpressionAnalysis('test/RNA-seq/reads.count.xls')
+gea.DESeq2(
+    metadata='test/RNA-seq/DEG/metadata.xls',
+    min_reads_count=3,
+    padj=0.05,
+    log2fc=1,
+    figure_size=(10, 10),
+    out_path='test/RNA-seq/DEG'
+)
+```
+![image](https://github.com/60533/PyBioinformatic/blob/main/test/RNA-seq/DEG/OE_vs_CK.volcano.png)
+
+## 1.3 Allele expression pattern clustering
 ```python
 from pybioinformatic import AllelicExpressionAnalyzer
 
