@@ -1,7 +1,10 @@
 **<a id="link1">User guide of GenoType class</a>**<br />
+
 - [1. Genotype file format](#1-genotype-file-format)
 - [2. Instantiate a GenoType object and convert it to the pandas.DataFrame class](#2-instantiate-a-genotype-object-and-convert-it-to-the-pandasdataframe-class)
 - [3. Data preprocessing](#3-data-preprocessing)
+  - [3.1 Sample repeated genotype consistency filtering](#31-sample-repeated-genotype-consistency-filtering)
+  - [3.2 Remain biallelic SNP](#32-remain-biallelic-snp)
 - [4. Merge data by position](#4-merge-data-by-position)
 - [5. Filter mendelian errors](#5-filter-mendelian-errors)
 - [6. Calculate the missing rate, heterozygosity rate and minor allele frequency (MAF) of SNP](#6-calculate-the-missing-rate-heterozygosity-rate-and-minor-allele-frequency-maf-of-snp)
@@ -15,6 +18,7 @@
   - [11.1. Select core SNPs](#111-select-core-snps)
   - [11.2. Visualized fingerprint](#112-visualized-fingerprint)
 - [12. Analysis of phenotypic differences by genotype](#12-analysis-of-phenotypic-differences-by-genotype)
+
 
 # 1. Genotype file format
 **A standard genotype file should at least contain 5 columns, with each column separated by a tab. The column names are `ID`, `Chrom`, `Position`, `Ref` and `Sample_name`.**
@@ -65,6 +69,36 @@ SNP10  Chr19  10936856   C       AC  ...       AC       AC       AC       CC
 **Then, you can call the methods of the pandas.DataFrame class to conduct personalized analysis.**
 
 # 3. Data preprocessing
+## 3.1 Sample repeated genotype consistency filtering
+```python
+from pybioinformatic import GenoType
+
+with GenoType('test/genotype/sample_repeat_genotype_consistency/genotype.xls') as gt:
+    pass_genotype = gt.filter_consistent_replicate_sites(
+        sep='_',  # Screen out the loci where the genotypes of all sample repeats are consistent
+        keep_na_consistent=True  # Genotypes of sample repeats are all absent, they are also regarded as consistent
+    )
+    print(pass_genotype)
+```
+```text
+                Chrom  Position Ref 2001_1 2001_2 2001_3 2002_1 2002_2 2002_3
+ID                                                                           
+Chr01_313023    Chr01    313023   A     AA     AA     AA     AA     AA     AA
+Chr01_9955834   Chr01   9955834   T     AT     AT     AT     NA     NA     NA
+Chr01_13190132  Chr01  13190132   G     GG     GG     GG     GG     GG     GG
+Chr01_18776537  Chr01  18776537   T     TT     TT     TT     GT     GT     GT
+Chr01_24231571  Chr01  24231571   C     CC     CC     CC     CT     CT     CT
+...               ...       ...  ..    ...    ...    ...    ...    ...    ...
+Chr19_8260732   Chr19   8260732   G     GG     GG     GG     GT     GT     GT
+Chr19_10792162  Chr19  10792162   C     TT     TT     TT     CC     CC     CC
+Chr19_11601437  Chr19  11601437   T     CT     CT     CT     TT     TT     TT
+Chr19_13054535  Chr19  13054535   G     GG     GG     GG     GG     GG     GG
+Chr19_13696867  Chr19  13696867   G     AG     AG     AG     AG     AG     AG
+
+[97 rows x 9 columns]
+```
+
+## 3.2 Remain biallelic SNP
 **Many of the Genotype class methods are more robust when conducting biallelic SNP analysis. Therefore, we suggest that you process your genotype file before conducting the data analysis. Assuming that your genotype file is a multiple allele SNP, then the following code can be used to select the biallelic SNP.**
 ```python
 from pybioinformatic import GenoType
