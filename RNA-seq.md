@@ -3,7 +3,8 @@
 - [1. RNA-seq analysis](#1-rna-seq-analysis)
   - [1.1 Standardize the expression levels of genes](#11-standardize-the-expression-levels-of-genes)
   - [1.2 Differential expression analysis](#12-differential-expression-analysis)
-  - [1.3 Allele expression pattern clustering](#13-allele-expression-pattern-clustering)
+  - [1.3 Differential expression enrichment analysis](#13-differential-expression-enrichment-analysis)
+  - [1.4 Allele expression pattern clustering](#14-allele-expression-pattern-clustering)
 
 # 1. RNA-seq analysis
 ## 1.1 Standardize the expression levels of genes
