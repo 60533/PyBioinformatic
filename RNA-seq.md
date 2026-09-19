@@ -77,7 +77,26 @@ gea.DESeq2(
 ```
 ![image](https://github.com/60533/PyBioinformatic/blob/main/test/RNA-seq/DEG/OE_vs_CK.volcano.png)
 
-## 1.3 Allele expression pattern clustering
+## 1.3 Differential expression enrichment analysis
+```python
+from pybioinformatic import GeneExpressionAnalysis
+
+gea = GeneExpressionAnalysis(exp_matrix='test/RNA-seq/reads.count.xls')
+ret = gea.enrichment_analysis(
+    foreground_gene_set='test/RNA-seq/enrichment/DEGs.lst',
+    background_gene_set='test/RNA-seq/enrichment/KEGG_anno.xls',
+    min_exp=3,
+    n_top=15,
+    title='OE_vs_CK',
+    color_map='RdYlBu',
+    wrap_width=35,
+    figure_size=(6, 8),
+    out_path='test/RNA-seq/enrichment'
+)
+```
+![image](https://github.com/60533/PyBioinformatic/blob/main/test/RNA-seq/enrichment/dotplot.png)
+
+## 1.4 Allele expression pattern clustering
 ```python
 from pybioinformatic import AllelicExpressionAnalyzer
 
