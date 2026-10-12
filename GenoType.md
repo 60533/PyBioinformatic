@@ -3,21 +3,21 @@
 - [1. Genotype file format](#1-genotype-file-format)
 - [2. Instantiate a GenoType object and convert it to the pandas.DataFrame class](#2-instantiate-a-genotype-object-and-convert-it-to-the-pandasdataframe-class)
 - [3. Data preprocessing](#3-data-preprocessing)
-  - [3.1 Sample repeated genotype consistency filtering](#31-sample-repeated-genotype-consistency-filtering)
-  - [3.2 Remain biallelic SNP](#32-remain-biallelic-snp)
-- [4. Merge data by position](#4-merge-data-by-position)
-- [5. Filter mendelian errors](#5-filter-mendelian-errors)
-- [6. Calculate the missing rate, heterozygosity rate and minor allele frequency (MAF) of SNP](#6-calculate-the-missing-rate-heterozygosity-rate-and-minor-allele-frequency-maf-of-snp)
-- [7. Identify the SNPs that can distinguish different sample groups](#7-identify-the-snps-that-can-distinguish-different-sample-groups)
-- [8. Find the smallest set of SNP loci that can distinguish all samples by greedy forward choice](#8-find-the-smallest-set-of-snp-loci-that-can-distinguish-all-samples-by-greedy-forward-choice)
-- [9. Calculate genotype similarity](#9-calculate-genotype-similarity)
-  - [9.1. Compare with the genotype matrix of the database. It can be used for cultivar identification](#91-compare-with-the-genotype-matrix-of-the-database-it-can-be-used-for-cultivar-identification)
-  - [9.2. Compare the genotype consistency among different replicate samples](#92-compare-the-genotype-consistency-among-different-replicate-samples)
-- [10. Draw genotype heatmap](#10-draw-genotype-heatmap)
-- [11. Build finger-print](#11-build-finger-print)
-  - [11.1. Select core SNPs](#111-select-core-snps)
-  - [11.2. Visualized fingerprint](#112-visualized-fingerprint)
-- [12. Analysis of phenotypic differences by genotype](#12-analysis-of-phenotypic-differences-by-genotype)
+  - [3.1 Merge data by position](#31-merge-data-by-position)
+  - [3.2 Sample repeated genotype consistency filtering](#32-sample-repeated-genotype-consistency-filtering)
+  - [3.3 Remain biallelic SNP](#33-remain-biallelic-snp)
+  - [3.4 Filter mendelian errors](#34-filter-mendelian-errors)
+- [4. Calculate the missing rate, heterozygosity rate and minor allele frequency (MAF) of SNP](#4-calculate-the-missing-rate-heterozygosity-rate-and-minor-allele-frequency-maf-of-snp)
+- [5. Identify the SNPs that can distinguish different sample groups](#5-identify-the-snps-that-can-distinguish-different-sample-groups)
+- [6. Find the smallest set of SNP loci that can distinguish all samples by greedy forward choice](#6-find-the-smallest-set-of-snp-loci-that-can-distinguish-all-samples-by-greedy-forward-choice)
+- [7. Calculate genotype similarity](#7-calculate-genotype-similarity)
+  - [7.1 Compare with the genotype matrix of the database. It can be used for cultivar identification](#71-compare-with-the-genotype-matrix-of-the-database-it-can-be-used-for-cultivar-identification)
+  - [7.2 Compare the genotype consistency among different replicate samples](#72-compare-the-genotype-consistency-among-different-replicate-samples)
+- [8. Draw genotype heatmap](#8-draw-genotype-heatmap)
+- [9. Build finger-print](#9-build-finger-print)
+  - [9.1 Select core SNPs](#91-select-core-snps)
+  - [9.2 Visualized fingerprint](#92-visualized-fingerprint)
+- [10. Analysis of phenotypic differences by genotype](#10-analysis-of-phenotypic-differences-by-genotype)
 
 
 # 1. Genotype file format
@@ -69,47 +69,7 @@ SNP10  Chr19  10936856   C       AC  ...       AC       AC       AC       CC
 **Then, you can call the methods of the pandas.DataFrame class to conduct personalized analysis.**
 
 # 3. Data preprocessing
-## 3.1 Sample repeated genotype consistency filtering
-```python
-from pybioinformatic import GenoType
-
-with GenoType('test/genotype/sample_repeat_genotype_consistency/genotype.xls') as gt:
-    pass_genotype = gt.filter_consistent_replicate_sites(
-        sep='_',  # Screen out the loci where the genotypes of all sample repeats are consistent
-        keep_na_consistent=True  # Genotypes of sample repeats are all absent, they are also regarded as consistent
-    )
-    print(pass_genotype)
-```
-```text
-                Chrom  Position Ref 2001_1 2001_2 2001_3 2002_1 2002_2 2002_3
-ID                                                                           
-Chr01_313023    Chr01    313023   A     AA     AA     AA     AA     AA     AA
-Chr01_9955834   Chr01   9955834   T     AT     AT     AT     NA     NA     NA
-Chr01_13190132  Chr01  13190132   G     GG     GG     GG     GG     GG     GG
-Chr01_18776537  Chr01  18776537   T     TT     TT     TT     GT     GT     GT
-Chr01_24231571  Chr01  24231571   C     CC     CC     CC     CT     CT     CT
-...               ...       ...  ..    ...    ...    ...    ...    ...    ...
-Chr19_8260732   Chr19   8260732   G     GG     GG     GG     GT     GT     GT
-Chr19_10792162  Chr19  10792162   C     TT     TT     TT     CC     CC     CC
-Chr19_11601437  Chr19  11601437   T     CT     CT     CT     TT     TT     TT
-Chr19_13054535  Chr19  13054535   G     GG     GG     GG     GG     GG     GG
-Chr19_13696867  Chr19  13696867   G     AG     AG     AG     AG     AG     AG
-
-[97 rows x 9 columns]
-```
-
-## 3.2 Remain biallelic SNP
-**Many of the Genotype class methods are more robust when conducting biallelic SNP analysis. Therefore, we suggest that you process your genotype file before conducting the data analysis. Assuming that your genotype file is a multiple allele SNP, then the following code can be used to select the biallelic SNP.**
-```python
-from pybioinformatic import GenoType
-
-with GenoType('test/genotype/raw_genotype.txt') as gt:
-    df = gt.filter_allele(min_alleles=2, max_alleles=2)
-    df.to_csv('test/genotype/biallelic_genotype.txt', sep='\t', na_rep='NA')
-```
-**The multiple allele SNP "SNP05" will be removed.**
-
-# 4. Merge data by position
+## 3.1 Merge data by position
 ```python
 from pybioinformatic import GenoType
 
@@ -154,8 +114,47 @@ Chr19_10936856  Chr19  10936856   C  ...       CC       AC       AA
 
 [9 rows x 33 columns]
 ```
+## 3.2 Sample repeated genotype consistency filtering
+```python
+from pybioinformatic import GenoType
 
-# 5. Filter mendelian errors
+with GenoType('test/genotype/sample_repeat_genotype_consistency/genotype.xls') as gt:
+    pass_genotype = gt.filter_consistent_replicate_sites(
+        sep='_',  # Screen out the loci where the genotypes of all sample repeats are consistent
+        keep_na_consistent=True  # Genotypes of sample repeats are all absent, they are also regarded as consistent
+    )
+    print(pass_genotype)
+```
+```text
+                Chrom  Position Ref 2001_1 2001_2 2001_3 2002_1 2002_2 2002_3
+ID                                                                           
+Chr01_313023    Chr01    313023   A     AA     AA     AA     AA     AA     AA
+Chr01_9955834   Chr01   9955834   T     AT     AT     AT     NA     NA     NA
+Chr01_13190132  Chr01  13190132   G     GG     GG     GG     GG     GG     GG
+Chr01_18776537  Chr01  18776537   T     TT     TT     TT     GT     GT     GT
+Chr01_24231571  Chr01  24231571   C     CC     CC     CC     CT     CT     CT
+...               ...       ...  ..    ...    ...    ...    ...    ...    ...
+Chr19_8260732   Chr19   8260732   G     GG     GG     GG     GT     GT     GT
+Chr19_10792162  Chr19  10792162   C     TT     TT     TT     CC     CC     CC
+Chr19_11601437  Chr19  11601437   T     CT     CT     CT     TT     TT     TT
+Chr19_13054535  Chr19  13054535   G     GG     GG     GG     GG     GG     GG
+Chr19_13696867  Chr19  13696867   G     AG     AG     AG     AG     AG     AG
+
+[97 rows x 9 columns]
+```
+
+## 3.3 Remain biallelic SNP
+**Many of the Genotype class methods are more robust when conducting biallelic SNP analysis. Therefore, we suggest that you process your genotype file before conducting the data analysis. Assuming that your genotype file is a multiple allele SNP, then the following code can be used to select the biallelic SNP.**
+```python
+from pybioinformatic import GenoType
+
+with GenoType('test/genotype/raw_genotype.txt') as gt:
+    df = gt.filter_allele(min_alleles=2, max_alleles=2)
+    df.to_csv('test/genotype/biallelic_genotype.txt', sep='\t', na_rep='NA')
+```
+**The multiple allele SNP "SNP05" will be removed.**
+
+## 3.4 Filter mendelian errors
 ```python
 from pybioinformatic import GenoType
 
@@ -187,7 +186,26 @@ with GenoType('test/genotype/filter_mendelian_errors/raw_genotype.txt') as gt:
 3  SNP08  Chr17   3911259   G       AG       AA       AA       GG
 ```
 
-# 6. Calculate the missing rate, heterozygosity rate and minor allele frequency (MAF) of SNP
+# 4. Select SNPs where both parents are homozygous but have different genotypes.
+```python
+from pybioinformatic import GenoType
+
+with GenoType('test/genotype/genotype.txt') as gt:
+    df = gt.filter_parents_hom_inconsistent_sites(parents=['Sample03', 'Sample05'])
+    print(df)
+```
+```text
+       Chrom  Position Ref Sample01  ... Sample25 Sample26 Sample27 Sample28
+ID                                   ...                                    
+SNP01  Chr01  33103326   G       GG  ...       GT       GT       TT       TT
+SNP04  Chr03    436874   T       CT  ...       CC       CC       CT       TT
+SNP08  Chr17   3911259   G       AG  ...       GG       AG       AG       AA
+SNP10  Chr19  10936856   C       AC  ...       AC       AC       AC       CC
+
+[4 rows x 31 columns]
+```
+
+# 5. Calculate the missing rate, heterozygosity rate and minor allele frequency (MAF) of SNP
 ```python
 from pybioinformatic import GenoType
 
@@ -209,7 +227,7 @@ with GenoType('test/genotype/genotype.txt') as gt:
 9  SNP10  Chr19  10936856   C          0.0   57.142857  0.428571
 ```
 
-# 7. Identify the SNPs that can distinguish different sample groups
+# 6. Identify the SNPs that can distinguish different sample groups
 ```python
 from pybioinformatic import GenoType
 
@@ -230,7 +248,7 @@ Chr02_8789570  Chr02   8789570   T       CC  ...       TT       TT       TT     
 [1 rows x 31 columns]
 ```
 
-# 8. Find the smallest set of SNP loci that can distinguish all samples by greedy forward choice
+# 7. Find the smallest set of SNP loci that can distinguish all samples by greedy forward choice
 ```python
 from pybioinformatic import GenoType
 
@@ -251,8 +269,8 @@ SNP09  Chr18   3552443   C       CT  ...       TT       CT       CC       CT
 ```
 **These 5 SNP genotype combinations can distinguish among the 28 samples.**
 
-# 9. Calculate genotype similarity
-## 9.1. Compare with the genotype matrix of the database. It can be used for cultivar identification
+# 8. Calculate genotype similarity
+## 8.1 Compare with the genotype matrix of the database. It can be used for cultivar identification
 ```python
 from pybioinformatic import GenoType
 
@@ -319,7 +337,7 @@ Sample09  22.22     22.22     11.11     11.11     33.33     ......
 **Also outputs the visualized results of genotype similarity**
 ![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/gs/GS_heatmap.png)
 ![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/gs/GS_cluster_heatmap.png)
-## 9.2. Compare the genotype consistency among different replicate samples
+## 8.2 Compare the genotype consistency among different replicate samples
 ```python
 from pybioinformatic import GenoType
 
@@ -371,7 +389,7 @@ total      28.0
 ```
 **[`Interval.stat.xls`](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/gs/Interval.stat.xls) count the number of samples in each similarity interval.**
 
-# 10. Draw genotype heatmap
+# 9. Draw genotype heatmap
 ```python
 from pybioinformatic import GenoType
 
@@ -398,8 +416,8 @@ with GenoType('test/genotype/genotype.txt') as gt:
 ```
 ![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/genotype_heatmap/genotype_heatmap_with_customized_colors.png)
 
-# 11. Build finger-print
-## 11.1. Select core SNPs
+# 10. Build finger-print
+## 10.1 Select core SNPs
 **Select a minimal core set of SNP loci that can fully discriminate all samples using a genetic algorithm (GA) with optional uniform chromosomal distribution constraints.**<br />
 ![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/finger_print/flowchart.png)
 ```python
@@ -436,7 +454,7 @@ SNP1291  Chr02  12057445  A    CC         CC         CC         AA         ...
 ```
 ![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/finger_print/identification_rate_curve.png)<br />
 **More detail information use `help(gt.select_core_snps_ga)`**
-## 11.2. Visualized fingerprint
+## 10.2 Visualized fingerprint
 ```python
 from pybioinformatic import GenoType
 
@@ -445,7 +463,7 @@ with GenoType('test/genotype/finger_print/coreSNP.txt') as gt:
 ```
 ![image](https://github.com/60533/PyBioinformatic/blob/main/test/genotype/finger_print/fingerprint.png)
 
-# 12. Analysis of phenotypic differences by genotype
+# 11. Analysis of phenotypic differences by genotype
 **Perform phenotypic association analysis (ANOVA) for the genotype of each SNP in the input genotype matrix and visualize the results.**
 ```python
 from pybioinformatic import GenoType
